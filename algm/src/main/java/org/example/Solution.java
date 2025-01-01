@@ -6,15 +6,15 @@ import java.util.List;
 public class Solution {
     private List<List<Integer>> result; // 存放符合条件结果的集合
     private List<Integer> path; // 用来存放符合条件结果
-
-    public void backtracking(int n, int k, int startIndex) {
+    private int n=5;
+    public void backtracking( int k, int startIndex) {
         if (path.size() == k) {
             result.add(new ArrayList<>(path));
             return;
         }
         for (int i = startIndex; i <= n; i++) {
             path.add(i); // 处理节点
-            backtracking(n, k, i + 1); // 递归
+            backtracking(k, i + 1); // 递归
             path.remove(path.size() - 1); // 回溯，撤销处理的节点
         }
     }
@@ -22,7 +22,7 @@ public class Solution {
     public List<List<Integer>> combine(int n, int k) {
         result = new ArrayList<>();
         path = new ArrayList<>();
-        backtracking(n, k, 1);
+        backtracking(k, 1);
         return result;
     }
 
