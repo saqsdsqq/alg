@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-public class combinationSum2_copy {
+public class subsets {
 
 
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class combinationSum2_copy {
         Set<Integer> add = new HashSet<>();
 
 //        candidates.add(7);
-        int[] candidates = new int[]{10, 1, 2, 7, 6, 1, 5};
+        int[] candidates = new int[]{1,2,2};
         int len = candidates.length - 1;
 
         int target = 8;
@@ -24,33 +24,33 @@ public class combinationSum2_copy {
                 continue;
             }
             sum += candidates[i];
-            if (sum == target) {
-                results.add(new int[]{candidates[i]});
-            }
+
+            results.add(new int[]{candidates[i]});
+
             for (int j = i + 1; j <= len; j++) {
                 if (j > i + 1 && candidates[j] == candidates[j - 1]) {
                     continue;
                 }
                 sum += candidates[j];
-                if (sum == target) {
-                    results.add(new int[]{candidates[i], candidates[j]});
-                }
+
+                results.add(new int[]{candidates[i], candidates[j]});
+
                 for (int u = j + 1; u <= len; u++) {
                     if (u > j + 1 && candidates[u] == candidates[u - 1]) {
                         continue;
                     }
                     sum += candidates[u];
-                    if (sum == target) {
-                        results.add(new int[]{candidates[i], candidates[j], candidates[u]});
-                    }
+
+                    results.add(new int[]{candidates[i], candidates[j], candidates[u]});
+
                     for (int k = u + 1; k <= len; k++) {
                         if (k > u + 1 && candidates[k] == candidates[k - 1]) {
                             continue;
                         }
                         sum += candidates[k];
-                        if (sum == target) {
-                            results.add(new int[]{candidates[i], candidates[j], candidates[u], candidates[k]});
-                        }
+
+                        results.add(new int[]{candidates[i], candidates[j], candidates[u], candidates[k]});
+
                         sum -= candidates[k];
                     }
                     sum -= candidates[u];
