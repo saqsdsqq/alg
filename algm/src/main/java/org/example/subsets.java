@@ -9,7 +9,6 @@ public class subsets {
         int n = 5;
         List<int[]> results = new ArrayList<>();
         Set<Integer> add = new HashSet<>();
-
 //        candidates.add(7);
         int[] candidates = new int[]{1,2,2};
         int len = candidates.length - 1;

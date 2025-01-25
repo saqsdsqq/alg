@@ -1,36 +1,43 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
-public class Solution {
-    private List<List<Integer>> result; // 存放符合条件结果的集合
-    private List<Integer> path; // 用来存放符合条件结果
-    private int n=5;
-    public void backtracking( int k, int startIndex) {
-        if (path.size() == k) {
-            result.add(new ArrayList<>(path));
+class Solution {
+    //保持前几题一贯的格式， initialization
+    static List<List<String>> res = new ArrayList<>();
+    static List<String> cur = new ArrayList<>();
+    public static List<List<String>> partition(String s) {
+        backtracking(s, 0, new StringBuilder());
+        return res;
+    }
+    private static void backtracking(String s, int start, StringBuilder sb){
+        //因为是起始位置一个一个加的，所以结束时start一定等于s.length,因为进入backtracking时一定末尾也是回文，所以cur是满足条件的
+        if (start == s.length()){
+            //注意创建一个新的copy
+            res.add(new ArrayList<>(cur));
             return;
         }
-        for (int i = startIndex; i <= n; i++) {
-            path.add(i); // 处理节点
-            backtracking(k, i + 1); // 递归
-            path.remove(path.size() - 1); // 回溯，撤销处理的节点
+        //像前两题一样从前往后搜索，如果发现回文，进入backtracking,起始位置后移一位，循环结束照例移除cur的末位
+        for (int i = start; i < s.length(); i++){
+            sb.append(s.charAt(i));
+                cur.add(sb.toString());
+                backtracking(s, i + 1, new StringBuilder());
+                cur.remove(cur.size() -1 );
+
         }
     }
-
-    public List<List<Integer>> combine(int n, int k) {
-        result = new ArrayList<>();
-        path = new ArrayList<>();
-        backtracking(k, 1);
-        return result;
-    }
-
+//[[a, b, c, d], [a, b, cd], [a, bc, d], [a, bcd], [ab, c, d], [ab, cd], [abc, d], [abcd]]
+//    [a, b, c, d, cd, bc, d, bcd, ab, c, d, cd, abc, d, abcd]
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        List<List<Integer>> combinations = solution.combine(5, 3);
-        for (List<Integer> combination : combinations) {
-            System.out.println(combination);
-        }
+        String s = "abcd";
+        HashMap<Character,Integer> map=new HashMap<>();
+        char[] charArray = s.toCharArray();
+//        s.substring()
+        List<List<String>> substrings = partition(s);
+        System.out.println(substrings);  // 输出所有子串
     }
+
 }
